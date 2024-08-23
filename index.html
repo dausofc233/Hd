@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@MEGIDEV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            background-color: #000;
+        }
+
+        .wrapper {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 80rem;
+        }
+
+        .cols {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+
+        .col {
+            width: calc(25% - 2rem);
+            margin: 1rem;
+            cursor: pointer;
+
+        }
+
+        .container {
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+        }
+
+        .front,
+        .back {
+            background-size: cover;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            background-position: center;
+            -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            text-align: center;
+            min-height: 280px;
+            box-shadow: 0 0 10px solid blue;
+
+            height: auto;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .back {
+            background: #cedce7;
+            background: -webkit-linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+            background: -o-linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+            background: linear-gradient(45deg, #cedce7 0%, #596a72 100%);
+        }
+
+        .front:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            content: '';
+            display: block;
+            opacity: .6;
+            background-color: #000;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+        }
+
+        .container:hover .front,
+        .container:hover .back {
+            -webkit-transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            -o-transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transition: transform .7s cubic-bezier(0.4, 0.2, 0.2, 1), -webkit-transform .7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .inner {
+            -webkit-transform: translateY(-50%) translateZ(60px) scale(0.94);
+            transform: translateY(-50%) translateZ(60px) scale(0.94);
+            top: 50%;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            outline: 1px solid transparent;
+            -webkit-perspective: inherit;
+            perspective: inherit;
+            z-index: 2;
+        }
+
+        .container .back {
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .container .front {
+            -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .container:hover .back {
+            -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .container:hover .front {
+            -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        .front .inner p {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .front .inner p:after {
+            content: '';
+            width: 4rem;
+            height: 2px;
+            position: absolute;
+            background: #C6D4DF;
+            display: block;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            bottom: -.75rem;
+        }
+
+        .front .inner span {
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Montserrat';
+            font-weight: 300;
+        }
+
+        @media screen and (max-width: 64rem) {
+            .col {
+                width: calc(33.333333% - 2rem);
+            }
+        }
+
+        @media screen and (max-width: 48rem) {
+            .col {
+                width: calc(50% - 2rem);
+            }
+        }
+
+        @media screen and (max-width: 32rem) {
+            .col {
+                width: 100%;
+                margin: 0 0 2rem 0;
+            }
+        }
+
+        button {
+            background: #000000;
+            padding: 10px;
+            display: inline-block;
+            outline: 0;
+            border: 0;
+            margin: -1px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            top: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: lightblue;
+            color: #000000;
+            transition: all 0.4s ease-in-out;
+        }
+
+        p{
+            font-size: 12px;
+        }
+        
+        h1{
+            font-size: 18px;
+            position: relative;
+            top: 10px;
+        }
+
+        
+        /* -- External Social Link CSS Styles -- */
+
+        #source-link {
+            top: 120px;
+        }
+
+        #source-link>i {
+            color: rgb(94, 106, 210);
+        }
+
+        #yt-link {
+            top: 65px;
+        }
+
+        #yt-link>i {
+            color: rgb(219, 31, 106);
+
+        }
+
+        #Fund-link {
+            top: 10px;
+        }
+
+        #Fund-link>i {
+            color: rgb(255, 251, 0);
+
+        }
+
+        .meta-link {
+            align-items: center;
+            backdrop-filter: blur(3px);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: inline-flex;
+            gap: 5px;
+            left: 10px;
+            padding: 10px 20px;
+            position: fixed;
+            text-decoration: none;
+            transition: background-color 600ms, border-color 600ms;
+            z-index: 10000;
+        }
+
+        .meta-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .meta-link>i,
+        .meta-link>span {
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .meta-link>span {
+            color: white;
+            font-family: "Rubik", sans-serif;
+            transition: color 600ms;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="cols">
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/390d1e0a3800cdc108975.jpg)">
+                        <div class="inner">
+                            <p>𝐁𝐒𝐓𝐀𝐓𝐈𝐎𝐍</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            
+                            <p>Taj Mahal is a beautiful and most attractive historical place in India</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/513b559ea17ea3f067cff.jpg)">
+                        <div class="inner">
+                            <p>𝐘𝐎𝐔𝐓𝐔𝐁𝐄</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+
+                <div class="container">
+
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/5ba961a7a05e132018b1e.jpg)">
+                        <div class="inner">
+                            <p>𝐖𝐄𝐓𝐕</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/1f98899ac03be80c7684d.jpg)">
+                        <div class="inner">
+                            <p>𝐕𝐈𝐔</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/e20e666d54bf23ba6ca0a.jpg)">
+                        <div class="inner">
+                            <p>𝐍𝐄𝐓𝐅𝐋𝐈𝐗</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/24600e50236937b062c9a.jpg)">
+                        <div class="inner">
+                            <p>𝐃𝐈𝐒𝐍𝐄𝐘+ 𝐇𝐎𝐒𝐓𝐀𝐑</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+
+                <div class="container">
+
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/56498464a77cfb97072b5.jpg)">
+                        <div class="inner">
+                            <p>𝐈𝐐𝐈𝐘𝐈</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+
+                <div class="container">
+
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/aee4f821df5c8ed5b0ca5.jpg)">
+                        <div class="inner">
+                            <p>𝐖𝐀𝐓𝐓𝐏𝐀𝐃</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/e4cc82f15a3f3053b1c66.jpg)">
+                        <div class="inner">
+                            <p>𝐕𝐒𝐂𝐎</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/575188c7320ffa874f511.jpg)">
+                        <div class="inner">
+                            <p>𝐑𝐄𝐌𝐈𝐍𝐈</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/4898eb6493d230856f89a.jpg)">
+                        <div class="inner">
+                            <p>𝐓𝐄𝐙𝐙𝐀</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+           <div class="col" ontouchstart="this.classList.toggle('hover');">
+
+                <div class="container">
+
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/b9cb55493ee3c7a9c60e3.jpg)">
+                        <div class="inner">
+                            <p>𝐏𝐈𝐂𝐒𝐀𝐑𝐓 𝐆𝐎𝐋𝐃</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/cfb91b1534c1e8325dd0c.jpg)">
+                        <div class="inner">
+                            <p>𝐋𝐈𝐆𝐇𝐓𝐑𝐎𝐎𝐌</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          <div class="col" ontouchstart="this.classList.toggle('hover');">
+
+                <div class="container">
+
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/c7394104382b0f106df47.jpg)">
+                        <div class="inner">
+                            <p>𝐂𝐀𝐏𝐂𝐔𝐓</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/786f22922e5e5a6e5d108.jpg)">
+                        <div class="inner">
+                            <p>𝐂𝐀𝐍𝐕𝐀</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="col" ontouchstart="this.classList.toggle('hover');">
+
+                <div class="container">
+
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/04eda33855617f16360db.jpg)">
+                        <div class="inner">
+                            <p>𝐀𝐋𝐈𝐆𝐇𝐓 𝐌𝐎𝐓𝐈𝐎𝐍</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+                <div class="container">
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/d0abebb2d1a51f31e6964.jpg)">
+                        <div class="inner">
+                            <p>𝐓𝐈𝐊𝐓𝐎𝐊 𝐌𝐔𝐒𝐈𝐂</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" ontouchstart="this.classList.toggle('hover');">
+
+                <div class="container">
+
+                    <div class="front"
+                        style="background-image: url(https://telegra.ph/file/f5412ae807bb00b930552.jpg)">
+                        <div class="inner">
+                            <p>𝐀𝐈𝐃𝐄 𝐏𝐑𝐎</p>
+                            <span>PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="inner">
+                            <p>The Burj Khalifa is the tallest building in the world and a global icon.</p>
+
+                            <h1>Price - $499 / 7 Days</h1>
+
+                            <button class="btn btn-primary"> <i class="bi bi-bag"></i>Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!--Social Liks codings below-->
+    <a id="Fund-link" class="meta-link" href="https://dausofc.my.id/"
+        target="_blank">
+        <i class="website dausofc"></i>
+        <span> website dausofc...</span>
+    </a>
+</body>
+
+</html>
